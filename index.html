@@ -587,6 +587,24 @@
     .main.tushaal-expanded #content-frame {
       min-height: calc(100dvh - var(--topbar-height) - 54px);
     }
+    .main.workspace-expanded {
+      padding: 0;
+      overflow: hidden;
+    }
+    .main.workspace-expanded .dashboard,
+    .main.workspace-expanded .content-frame-wrap {
+      height: calc(100dvh - var(--topbar-height));
+    }
+    .main.workspace-expanded .content-frame-wrap {
+      min-height: calc(100dvh - var(--topbar-height));
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      box-shadow: none;
+    }
+    .main.workspace-expanded #content-frame {
+      min-height: calc(100dvh - var(--topbar-height) - 54px);
+    }
     .frame-titlebar {
       display: flex;
       align-items: center;
@@ -1247,9 +1265,9 @@
     'Төлөвлөгөө / Сарын ажлын төлөвлөгөө': 'sariin.html',
     'Шийдвэр': 'shiidwer.html',
     'Үүрэг даалгавар': 'ita.html',
-    'Менежментийн нэгдсэн тогтолцоо': 'anhaar.html',
     'Ажлын бүртгэл': 'ajliinBvrtgel.html',
     'Хурлын тэмдэглэл': 'hural.html',
+    'Менежментийн нэгдсэн тогтолцоо': 'anhaar.html',
     'Ажилтануудын мэдээлэл': 'ajiltan.html',
     'Суман шилжүүлгийн бүртгэл': 'sum.html',
     'Малтай айлын судалгаа': 'torZasagch.html',
@@ -1464,7 +1482,6 @@
       'iframe { max-width: 100%; }',
       'input, textarea, select { max-width: 100%; }',
       '.container, .wrapper, .dashboard, .main-content { width: 100% !important; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }',
-      '.wrap, body > .max-w-7xl { width: 100% !important; max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }',
       '.table-container, .table-wrapper, [class*="table-container"], [class*="table-wrapper"] { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }',
       '@media (max-width: 768px) {',
       '  body { min-width: 0 !important; }',
@@ -1661,13 +1678,12 @@
     const frameTitle = document.getElementById('frame-title-label');
     const main = document.querySelector('.main');
     const titleText = clickedElement.textContent.trim().replace(/\s+/g, ' ');
-    const isExpandedPage = pageKey === 'Тушаал, стандарт'
-      || pageKey === 'уулзварын зайн судалгаа'
-      || pageKey === 'Ажлын бүртгэл'
-      || pageKey === 'Хурлын тэмдэглэл';
+    const isTushaalPage = pageKey === 'Тушаал, стандарт' || pageKey === 'уулзварын зайн судалгаа';
+    const isWorkspacePage = pageKey === 'Ажлын бүртгэл' || pageKey === 'Хурлын тэмдэглэл';
 
     if (main) {
-      main.classList.toggle('tushaal-expanded', isExpandedPage);
+      main.classList.toggle('tushaal-expanded', isTushaalPage);
+      main.classList.toggle('workspace-expanded', isWorkspacePage);
     }
 
     frame.src = resolvePageSrc(pageKey, titleText);
